@@ -3,14 +3,13 @@
 # 加载用户配置（如果存在）
 if [ -f "$HOME/.config/proxy_ctl/config.sh" ]; then
     . "$HOME/.config/proxy_ctl/config.sh"
-else
-    export PROXY_HOST="127.0.0.1"
-    export PROXY_PORT="7890"
 fi
 
-if [ -z "$PROXY_URL" ]; then
-    export PROXY_URL="http://${PROXY_HOST}:${PROXY_PORT}"
-fi
+: ${PROXY_HOST:=127.0.0.1}
+: ${PROXY_PORT:=7890}
+: ${PROXY_PROTOCOL:=http}
+
+export PROXY_URL="${PROXY_PROTOCOL}://${PROXY_HOST}:${PROXY_PORT}"
 
 # 检测端口是否监听
 _proxy_port_check() {

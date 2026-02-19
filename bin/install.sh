@@ -17,25 +17,33 @@ mkdir -p "$CONFIG_DIR"
 echo "请配置代理信息（直接回车使用默认值）："
 echo ""
 
+PROXY_HOST_DEFAULT="127.0.0.1"
+PROXY_PORT_DEFAULT="7890"
+
 read -p "代理 Host [$PROXY_HOST_DEFAULT]: " PROXY_HOST
 PROXY_HOST=${PROXY_HOST:-$PROXY_HOST_DEFAULT}
-PROXY_HOST_DEFAULT="127.0.0.1"
 
 read -p "代理 Port [$PROXY_PORT_DEFAULT]: " PROXY_PORT
 PROXY_PORT=${PROXY_PORT:-$PROXY_PORT_DEFAULT}
-PROXY_PORT_DEFAULT="7890"
 
-read -p "代理 URL [http://$PROXY_HOST:$PROXY_PORT]: " PROXY_URL
-PROXY_URL=${PROXY_URL:-"http://$PROXY_HOST:$PROXY_PORT"}
+echo "代理协议："
+echo "  1) HTTP (默认)"
+echo "  2) SOCKS5"
+read -p "请选择 [1]: " PROXY_TYPE
+case "$PROXY_TYPE" in
+    2|socks5|SOCKS5)
+        PROXY_PROTOCOL="socks5"
+        ;;
+    *)
+        PROXY_PROTOCOL="http"
+        ;;
+esac
 
 # 写入配置文件
 cat > "$CONFIG_DIR/config.sh" <<EOF
-# ProxyCTL 配置文件
-# 由 install.sh 自动生成
-
 export PROXY_HOST="$PROXY_HOST"
 export PROXY_PORT="$PROXY_PORT"
-export PROXY_URL="$PROXY_URL"
+export PROXY_PROTOCOL="$PROXY_PROTOCOL"
 EOF
 
 echo ""

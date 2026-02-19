@@ -28,7 +28,7 @@ proxy_toggle  # 一键切换
 ```bash
 export PROXY_HOST="127.0.0.1"
 export PROXY_PORT="7890"
-export PROXY_URL="http://127.0.0.1:7890"
+export PROXY_PROTOCOL="http"   # http 或 socks5
 ```
 
 ## 卸载

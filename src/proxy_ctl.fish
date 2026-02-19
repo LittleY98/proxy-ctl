@@ -2,22 +2,24 @@
 
 # 加载用户配置（如果存在）
 if test -f "$HOME/.config/proxy_ctl/config.sh"
-    # Fish 使用 bash -c 来执行 bash 兼容的配置脚本
     bash -c "source $HOME/.config/proxy_ctl/config.sh && export" | while read -l line
         set -gx (string split '=' $line[1]) $line[2]
     end
 end
 
-# 设置默认值（如果未配置）
+# 设置默认值
 if not set -q PROXY_HOST
     set -gx PROXY_HOST "127.0.0.1"
 end
 if not set -q PROXY_PORT
     set -gx PROXY_PORT "7890"
 end
-if not set -q PROXY_URL
-    set -gx PROXY_URL "http://$PROXY_HOST:$PROXY_PORT"
+if not set -q PROXY_PROTOCOL
+    set -gx PROXY_PROTOCOL "http"
 end
+
+# 拼接代理 URL
+set -gx PROXY_URL "$PROXY_PROTOCOL://$PROXY_HOST:$PROXY_PORT"
 
 # 检测端口是否监听
 function _proxy_port_check
