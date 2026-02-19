@@ -10,7 +10,7 @@ if [ -d "$SCRIPT_DIR/../src" ]; then
     GITHUB_RAW=""
 else
     IS_LOCAL=false
-    GITHUB_RAW="https://raw.githubusercontent.com/yanglg/proxyctl/master"
+    GITHUB_RAW="https://raw.githubusercontent.com/LittleY98/proxy-ctl/refs/heads/master"
 fi
 
 echo "=========================================="
@@ -176,5 +176,5 @@ echo "  proxy_status  - 查看状态"
 echo "  proxy_toggle  - 一键切换"
 echo ""
 echo "卸载命令："
-echo "  curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh | bash -s -- uninstall"
+echo "  curl -sSL https://raw.githubusercontent.com/LittleY98/proxy-ctl/refs/heads/master/bin/install.sh | bash -s -- uninstall"
 echo ""
