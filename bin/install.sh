@@ -5,14 +5,12 @@ set -e
 read_prompt() {
     local prompt="$1"
     local var="$2"
-    local default="$3"
-    if [ -n "$default" ]; then
-        printf "%s [%s]: " "$prompt" "$default"
+    if [ -n "$3" ]; then
+        printf "%s [%s]: " "$prompt" "$3"
     else
         printf "%s: " "$prompt"
     fi
     read "$var"
-    eval "$var=\${$var:-\$default}"
 }
 
 ACTION="${1:-install}"
