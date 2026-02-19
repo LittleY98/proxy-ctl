@@ -1,6 +1,20 @@
 #!/bin/bash
 set -e
 
+# 兼容 zsh 的 read 函数
+read_prompt() {
+    local prompt="$1"
+    local var="$2"
+    local default="$3"
+    if [ -n "$default" ]; then
+        printf "%s [%s]: " "$prompt" "$default"
+    else
+        printf "%s: " "$prompt"
+    fi
+    read "$var"
+    eval "$var=\${$var:-\$default}"
+}
+
 ACTION="${1:-install}"
 CONFIG_DIR="$HOME/.config/proxy_ctl"
 
@@ -54,7 +68,7 @@ if [ "$ACTION" = "uninstall" ]; then
         echo "✅ 已从 $config_file 移除"
     }
 
-    read -p "确认卸载 ProxyCTL？(y/N): " confirm
+    read_prompt "确认卸载 ProxyCTL？(y/N)" confirm ""
     [[ ! "$confirm" =~ ^[Yy]$ ]] && echo "已取消" && exit 0
 
     [ -d "$CONFIG_DIR" ] && rm -rf "$CONFIG_DIR" && echo "✅ 已删除配置目录"
@@ -78,16 +92,16 @@ echo ""
 PROXY_HOST_DEFAULT="127.0.0.1"
 PROXY_PORT_DEFAULT="7890"
 
-read -p "代理 Host [$PROXY_HOST_DEFAULT]: " PROXY_HOST
+read_prompt "代理 Host" PROXY_HOST "$PROXY_HOST_DEFAULT"
 PROXY_HOST=${PROXY_HOST:-$PROXY_HOST_DEFAULT}
 
-read -p "代理 Port [$PROXY_PORT_DEFAULT]: " PROXY_PORT
+read_prompt "代理 Port" PROXY_PORT "$PROXY_PORT_DEFAULT"
 PROXY_PORT=${PROXY_PORT:-$PROXY_PORT_DEFAULT}
 
 echo "代理协议："
 echo "  1) HTTP (默认)"
 echo "  2) SOCKS5"
-read -p "请选择 [1]: " PROXY_TYPE
+read_prompt "请选择 [1]" PROXY_TYPE ""
 case "$PROXY_TYPE" in
     2|socks5|SOCKS5) PROXY_PROTOCOL="socks5" ;;
     *) PROXY_PROTOCOL="http" ;;
@@ -155,7 +169,7 @@ add_to_shell_config() {
 }
 
 echo ""
-read -p "是否添加到当前 shell 配置？(Y/n): " add_to_config
+read_prompt "是否添加到当前 shell 配置？(Y/n)" add_to_config "Y"
 add_to_config=${add_to_config:-Y}
 
 if [[ "$add_to_config" =~ ^[Yy]$ ]]; then
@@ -176,5 +190,5 @@ echo "  proxy_status  - 查看状态"
 echo "  proxy_toggle  - 一键切换"
 echo ""
 echo "卸载命令："
-echo "  curl -sSL https://raw.githubusercontent.com/LittleY98/proxy-ctl/refs/heads/master/bin/install.sh | bash -s -- uninstall"
+echo "  curl -sSL https://raw.githubusercontent.com/LittleY98/proxy-ctl/master/bin/install.sh | bash -s -- uninstall"
 echo ""
