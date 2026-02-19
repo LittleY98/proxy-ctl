@@ -71,6 +71,7 @@ add_to_shell_config() {
     case "$shell" in
         zsh)
             config_file="$HOME/.zshrc"
+            source_line="source $CONFIG_DIR/proxy_ctl.zsh"
             ;;
         bash)
             if [ -f "$HOME/.bashrc" ]; then
