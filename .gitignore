@@ -261,6 +261,9 @@ secrets.*
 *.p12
 *.pfx
 
+# ProxyCTL user config
+~/.config/proxy_ctl/
+
 # ===========================================
 # Build outputs
 # ===========================================
