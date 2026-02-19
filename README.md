@@ -5,13 +5,13 @@
 ## 一键安装
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/LittleY98/proxy-ctl/master/bin/install.sh | bash
 ```
 
 或先下载再运行：
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh -o install.sh
+curl -sSL https://raw.githubusercontent.com/LittleY98/proxy-ctl/master/bin/install.sh -o install.sh
 chmod +x install.sh
 ./install.sh
 ```
@@ -19,8 +19,8 @@ chmod +x install.sh
 ## 本地安装
 
 ```bash
-git clone https://github.com/yanglg/proxyctl.git
-cd proxyctl
+git clone https://github.com/LittleY98/proxy-ctl.git
+cd proxy-ctl
 ./bin/install.sh
 ```
 
@@ -46,5 +46,5 @@ export PROXY_PROTOCOL="http"   # http 或 socks5
 ## 卸载
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh | bash -s -- uninstall
+curl -sSL https://raw.githubusercontent.com/LittleY98/proxy-ctl/master/bin/install.sh | bash -s -- uninstall
 ```

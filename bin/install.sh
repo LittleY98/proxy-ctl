@@ -10,7 +10,7 @@ if [ -d "$SCRIPT_DIR/../src" ]; then
     GITHUB_RAW=""
 else
     IS_LOCAL=false
-    GITHUB_RAW="https://raw.githubusercontent.com/LittleY98/proxy-ctl/refs/heads/master"
+    GITHUB_RAW="https://raw.githubusercontent.com/LittleY98/proxy-ctl/master"
 fi
 
 echo "=========================================="
