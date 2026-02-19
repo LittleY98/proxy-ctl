@@ -49,17 +49,16 @@ EOF
 echo ""
 echo "✅ 配置文件已保存到: $CONFIG_DIR/config.sh"
 
-# 检测当前 shell
+# 检测当前 shell（通过进程名，更可靠）
 detect_shell() {
-    if [ -n "$ZSH_VERSION" ]; then
-        echo "zsh"
-    elif [ -n "$BASH_VERSION" ]; then
-        echo "bash"
-    elif [ -n "$FISH_VERSION" ]; then
-        echo "fish"
-    else
-        echo "unknown"
-    fi
+    local shell_name
+    shell_name=$(ps -p $$ -ocomm=)
+    case "$shell_name" in
+        *zsh)   echo "zsh" ;;
+        *bash)  echo "bash" ;;
+        *fish)  echo "fish" ;;
+        *)      echo "bash" ;;
+    esac
 }
 
 # 添加到 shell 配置
