@@ -263,3 +263,5 @@ secrets.*
 
 # ProxyCTL user config
 ~/.config/proxy_ctl/
+
+AGENTS.md

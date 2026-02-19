@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# 兼容 zsh 的 read 函数
 read_prompt() {
     local prompt="$1"
     local var="$2"
@@ -13,7 +12,7 @@ read_prompt() {
         printf "%s: " "$prompt"
     fi
 
-    # 兼容 curl|bash 安装：交互输入应从终端读取，而不是脚本标准输入
+    # curl|bash 时从 tty 读取
     if [ -r /dev/tty ]; then
         IFS= read -r value < /dev/tty || true
     elif [ -t 0 ]; then

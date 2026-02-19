@@ -1,27 +1,20 @@
-# ===== Clash Smart Proxy Switch =====
+# 终端代理切换工具 (Zsh)
 
-# 加载用户配置（如果存在）
-if [ -f "$HOME/.config/proxy_ctl/config.sh" ]; then
-    . "$HOME/.config/proxy_ctl/config.sh"
-fi
+[ -f "$HOME/.config/proxy_ctl/config.sh" ] && . "$HOME/.config/proxy_ctl/config.sh"
 
 : ${PROXY_HOST:=127.0.0.1}
 : ${PROXY_PORT:=7890}
 : ${PROXY_PROTOCOL:=http}
-
 export PROXY_URL="${PROXY_PROTOCOL}://${PROXY_HOST}:${PROXY_PORT}"
 
-# 检测端口是否监听
 _proxy_port_check() {
     nc -z ${PROXY_HOST} ${PROXY_PORT} >/dev/null 2>&1
 }
 
-# 检测代理是否真正可访问外网
 _proxy_connection_check() {
     curl -s --max-time 3 --proxy ${PROXY_URL} https://www.google.com >/dev/null 2>&1
 }
 
-# 开启代理
 proxy_on() {
 
     if ! _proxy_port_check; then
@@ -44,14 +37,12 @@ proxy_on() {
     echo "✅ Proxy ON -> $PROXY_URL"
 }
 
-# 关闭代理
 proxy_off() {
     unset http_proxy https_proxy all_proxy
     unset HTTP_PROXY HTTPS_PROXY ALL_PROXY
     echo "❌ Proxy OFF"
 }
 
-# 查看状态
 proxy_status() {
 
     if ! _proxy_port_check; then
@@ -72,7 +63,6 @@ proxy_status() {
     fi
 }
 
-# 一键切换
 proxy_toggle() {
     if [ -n "$http_proxy" ]; then
         proxy_off
