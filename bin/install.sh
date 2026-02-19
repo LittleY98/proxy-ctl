@@ -5,12 +5,28 @@ set -e
 read_prompt() {
     local prompt="$1"
     local var="$2"
-    if [ -n "$3" ]; then
-        printf "%s [%s]: " "$prompt" "$3"
+    local default="$3"
+    local value=""
+    if [ -n "$default" ]; then
+        printf "%s [%s]: " "$prompt" "$default"
     else
         printf "%s: " "$prompt"
     fi
-    read "$var"
+
+    # 兼容 curl|bash 安装：交互输入应从终端读取，而不是脚本标准输入
+    if [ -r /dev/tty ]; then
+        IFS= read -r value < /dev/tty || true
+    elif [ -t 0 ]; then
+        IFS= read -r value || true
+    else
+        value=""
+    fi
+
+    if [ -n "$value" ]; then
+        eval "$var=\$value"
+    else
+        eval "$var=\$default"
+    fi
 }
 
 ACTION="${1:-install}"
