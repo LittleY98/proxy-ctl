@@ -49,14 +49,15 @@ EOF
 echo ""
 echo "✅ 配置文件已保存到: $CONFIG_DIR/config.sh"
 
-# 检测当前 shell（通过进程名，更可靠）
+# 检测用户默认 shell（通过 $SHELL，更符合用户预期）
 detect_shell() {
+    local shell_path="${SHELL:-/bin/bash}"
     local shell_name
-    shell_name=$(ps -p $$ -ocomm=)
+    shell_name=$(basename "$shell_path")
     case "$shell_name" in
-        *zsh)   echo "zsh" ;;
-        *bash)  echo "bash" ;;
-        *fish)  echo "fish" ;;
+        zsh)    echo "zsh" ;;
+        bash)   echo "bash" ;;
+        fish)   echo "fish" ;;
         *)      echo "bash" ;;
     esac
 }
