@@ -263,15 +263,3 @@ secrets.*
 
 # ProxyCTL user config
 ~/.config/proxy_ctl/
-
-# ===========================================
-# Build outputs
-# ===========================================
-/build/
-/dist/
-/out/
-/output/
-/release/
-/release-builds/
-/bin/
-/obj/

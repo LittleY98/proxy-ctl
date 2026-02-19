@@ -95,9 +95,9 @@ add_to_shell_config() {
 }
 
 # 复制脚本到配置目录
-cp "$SCRIPT_DIR/proxy_ctl.sh" "$CONFIG_DIR/proxy_ctl.sh"
-cp "$SCRIPT_DIR/proxy_ctl.fish" "$CONFIG_DIR/proxy_ctl.fish"
-cp "$SCRIPT_DIR/proxy_ctl.zsh" "$CONFIG_DIR/proxy_ctl.zsh"
+cp "$SCRIPT_DIR/../src/proxy_ctl.sh" "$CONFIG_DIR/proxy_ctl.sh"
+cp "$SCRIPT_DIR/../src/proxy_ctl.fish" "$CONFIG_DIR/proxy_ctl.fish"
+cp "$SCRIPT_DIR/../src/proxy_ctl.zsh" "$CONFIG_DIR/proxy_ctl.zsh"
 
 echo "✅ 脚本已复制到: $CONFIG_DIR"
 echo ""
