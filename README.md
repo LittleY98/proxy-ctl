@@ -2,15 +2,27 @@
 
 终端代理快速切换工具，支持 Bash、Zsh、Fish。
 
-## 安装
+## 一键安装
 
 ```bash
-git clone https://github.com/yourusername/proxyctl.git
+curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh | bash
+```
+
+或先下载再运行：
+
+```bash
+curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh -o install.sh
+chmod +x install.sh
+./install.sh
+```
+
+## 本地安装
+
+```bash
+git clone https://github.com/yanglg/proxyctl.git
 cd proxyctl
 ./bin/install.sh
 ```
-
-安装过程会交互式配置代理信息，并自动添加到 shell 配置。
 
 ## 使用
 
@@ -34,6 +46,5 @@ export PROXY_PROTOCOL="http"   # http 或 socks5
 ## 卸载
 
 ```bash
-rm -rf ~/.config/proxy_ctl
-# 手动删除 shell 配置中的 source 行
+curl -sSL https://raw.githubusercontent.com/yanglg/proxyctl/master/bin/install.sh | bash -s -- uninstall
 ```
